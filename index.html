@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10251f">
+  <meta name="description" content="BusSwap — an operator-approved bus seat release and rebooking concept prototype.">
+  <title>BusSwap | Passenger Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="BusSwap home"><span class="brand-mark">B</span><span>bus<span class="brand-accent">swap</span></span></a>
+      <div class="profile-mini"><div class="avatar">IR</div><div><strong>Irfan R.</strong><small>Passenger account</small></div></div>
+      <nav class="nav-list" aria-label="Main navigation">
+        <button class="nav-link active" data-view="dashboard"><span>▦</span> Overview</button>
+        <button class="nav-link" data-view="journeys"><span>⌕</span> Find journeys</button>
+        <button class="nav-link" data-view="requests"><span>⇄</span> My requests <b id="requestNavCount">0</b></button>
+      </nav>
+      <div class="sidebar-bottom"><div class="help-card"><span class="help-icon">?</span><strong>Need help?</strong><p>Learn how operator approval works before submitting a request.</p><button id="policyLink" class="text-button">View guidelines →</button></div><small class="version">BUSSWAP PROTOTYPE · V1.0</small></div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu" aria-label="Toggle navigation">☰</button>
+        <div class="breadcrumb">Workspace <span>/</span> <strong id="breadcrumbTitle">Overview</strong></div>
+        <div class="topbar-right"><span class="demo-pill"><i></i> Demo environment</span><button class="avatar top-avatar" aria-label="Profile">IR</button></div>
+      </header>
+
+      <section class="view active" id="dashboardView">
+        <div class="welcome-row"><div><p class="eyebrow">MONDAY, YOUR TRAVEL DESK</p><h1>Good day, Irfan <span>✦</span></h1><p class="subheading">Manage your journeys and explore seat options in one place.</p></div><button class="primary-button" data-go="journeys">＋ Find a journey</button></div>
+        <div class="notice"><span class="notice-icon">ⓘ</span><div><strong>Operator approval comes first</strong><p>BusSwap is a concept prototype. A ticket can only be released or reassigned if the bus operator and booking platform explicitly allow it.</p></div><button class="notice-close" aria-label="Dismiss notice" id="dismissNotice">×</button></div>
+        <div class="stats-grid">
+          <article class="stat-card"><div class="stat-top"><span>Upcoming journeys</span><span class="stat-icon blue">⌁</span></div><strong>02</strong><small>Sample trips in your account</small></article>
+          <article class="stat-card"><div class="stat-top"><span>Active requests</span><span class="stat-icon orange">⇄</span></div><strong id="activeStat">00</strong><small>Awaiting review or action</small></article>
+          <article class="stat-card"><div class="stat-top"><span>Completed requests</span><span class="stat-icon green">✓</span></div><strong id="completedStat">00</strong><small>Demo status only</small></article>
+        </div>
+        <div class="section-heading"><div><p class="eyebrow">YOUR TRAVEL</p><h2>Upcoming journeys</h2></div><button class="subtle-button" data-go="journeys">Explore journeys →</button></div>
+        <div class="journey-grid">
+          <article class="journey-card"><div class="journey-head"><span class="operator-tag">DEMO OPERATOR</span><span class="ticket-status">Confirmed sample</span></div><div class="route"><div><small>FROM</small><strong>Hyderabad</strong><span>10:30 PM</span></div><div class="route-line"><i></i><small>8h 15m</small></div><div class="route-dest"><small>TO</small><strong>Bengaluru</strong><span>06:45 AM</span></div></div><div class="journey-foot"><span>Tomorrow · 12 Nov 2026</span><span>Seat <b>U12</b></span></div></article>
+          <article class="journey-card"><div class="journey-head"><span class="operator-tag">DEMO OPERATOR</span><span class="ticket-status">Confirmed sample</span></div><div class="route"><div><small>FROM</small><strong>Vijayawada</strong><span>09:00 PM</span></div><div class="route-line"><i></i><small>5h 30m</small></div><div class="route-dest"><small>TO</small><strong>Hyderabad</strong><span>02:30 AM</span></div></div><div class="journey-foot"><span>15 Nov 2026</span><span>Seat <b>L08</b></span></div></article>
+        </div>
+        <div class="section-heading request-heading"><div><p class="eyebrow">NEXT STEP</p><h2>Can't make your trip?</h2><p class="subheading">Submit a request for an operator-approved release or rebooking review.</p></div></div>
+        <div class="action-banner"><div class="action-symbol">⇄</div><div><strong>Request a seat release review</strong><p>Share your booking details. The request stays pending until the operator confirms an allowed option.</p></div><button class="secondary-button" data-open-form>Start a request <span>→</span></button></div>
+      </section>
+
+      <section class="view" id="journeysView">
+        <div class="page-heading"><p class="eyebrow">DISCOVER</p><h1>Find a journey</h1><p class="subheading">Browse sample routes. These are illustrative and are not live inventory.</p></div>
+        <div class="search-panel"><label>From<input id="fromFilter" placeholder="e.g. Hyderabad"></label><label>To<input id="toFilter" placeholder="e.g. Bengaluru"></label><label>Travel date<input id="dateFilter" type="date"></label><button class="primary-button" id="searchButton">Search journeys</button></div>
+        <div class="section-heading"><div><h2>Sample routes</h2><p class="muted" id="journeyCount">3 demo journeys</p></div></div>
+        <div class="results-list" id="journeyResults"></div>
+      </section>
+
+      <section class="view" id="requestsView">
+        <div class="page-heading"><p class="eyebrow">YOUR ACTIVITY</p><h1>My requests</h1><p class="subheading">Track requests submitted from this browser.</p></div>
+        <div id="requestList" class="request-list"></div>
+      </section>
+
+      <footer class="footer"><span>© 2026 BusSwap · Concept prototype</span><span>Not affiliated with any bus operator or booking platform.</span></footer>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="requestModal" aria-hidden="true">
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head"><div><p class="eyebrow">OPERATOR REVIEW REQUEST</p><h2 id="modalTitle">Request a seat release</h2><p class="subheading">This does not transfer or cancel your ticket.</p></div><button class="modal-close" id="closeModal" aria-label="Close">×</button></div>
+      <form id="requestForm">
+        <div class="form-grid"><label>Passenger name<input name="passenger" required placeholder="Name on booking"></label><label>Booking reference<input name="booking" required placeholder="e.g. BUS123456"></label><label>Operator / platform<input name="operator" required placeholder="Name shown on ticket"></label><label>Route<input name="route" required placeholder="From → To"></label><label>Departure date and time<input name="departure" type="datetime-local" required></label><label>Original ticket price (₹)<input name="price" type="number" min="1" step="1" required placeholder="e.g. 1200"></label><label class="full-field">Requested amount (₹)<input name="requested" type="number" min="1" step="1" required placeholder="Must be no more than 90% of original price"><small id="priceHint">Concept rule: requested amount cannot exceed 90% of the original fare.</small></label></div>
+        <div class="policy-check"><input id="policyAccepted" type="checkbox" required><label for="policyAccepted">I understand this is only a review request. I will not transfer, advertise, or accept payment for this ticket unless the operator and booking platform explicitly authorize the process.</label></div>
+        <div class="form-error" id="formError" role="alert"></div>
+        <div class="modal-actions"><button type="button" class="secondary-button" id="cancelModal">Cancel</button><button type="submit" class="primary-button">Submit for review →</button></div>
+      </form>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
